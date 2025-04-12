@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  cleargive:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"  # Backend API
+      - "5173:5173"  # Frontend
+    environment:
+      - PORT=8080
+      - ALLOWED_ORIGINS=http://localhost:5173
+      - DB_TYPE=sqlite
+      - DB_PATH=/app/server/data/cleargive.db
+    volumes:
+      - ./server/.env:/app/server/.env
+      - sqlite_data:/app/server/data
+
+volumes:
+  sqlite_data: 
